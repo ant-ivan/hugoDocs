@@ -25,3 +25,5 @@ hugo server
 ```
 
 **Note:** We're working on removing the need to run `npm i` for local development. Stay tuned.
+
+**Заметка:** Копия сделана в приблизительно 31.03.2025. Актуальная версия Hugo на тот момент была - [v0.145.0](https://github.com/gohugoio/hugo/releases/tag/v0.145.0), версия для [Windows-AMD64](https://github.com/gohugoio/hugo/releases/download/v0.145.0/hugo_0.145.0_windows-amd64.zip)
