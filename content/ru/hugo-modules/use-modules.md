@@ -1,17 +1,17 @@
 ---
-title: Use Hugo Modules
-description: How to use Hugo Modules.
+title: Использование модулей Hugo
+description: Как использовать модули Hugo.
 categories: []
 keywords: []
 weight: 20
 aliases: [/themes/usage/,/themes/installing/,/installing-and-using-themes/]
 ---
 
-## Prerequisite
+## Предварительные условия
 
 {{% include "/_common/gomodules-info.md" %}}
 
-## Initialize a new module
+## Инициализация нового модуля
 
 Use `hugo mod init` to initialize a new Hugo Module. If it fails to guess the module path, you must provide it as an argument, e.g.:
 
