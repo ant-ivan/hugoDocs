@@ -1,35 +1,35 @@
 ---
-title: Theme components
-description: Hugo provides advanced theming support with theme components.
+title: Компоненты тем
+description: Hugo обеспечивает расширенную поддержку тем с помощью компонентов тем.
 categories: []
 keywords: []
 weight: 30
 aliases: [/themes/customize/,/themes/customizing/]
 ---
 
-A project can configure a theme as a composite of as many theme components as you need:
+Проект может настроить тему как составную часть любого количества компонентов темы:
 
 {{< code-toggle file=hugo >}}
 theme = ["my-shortcodes", "base-theme", "hyde"]
 {{< /code-toggle >}}
 
-You can even nest this, and have the theme component itself include theme components in its own `hugo.toml` (theme inheritance).
+Вы даже можете вложить это и сделать так, чтобы сам компонент темы включал компоненты темы в свой собственный `hugo.toml` (наследование темы).
 
-The theme definition example above in `hugo.toml` creates a theme with 3 theme components with precedence from left to right.
+Пример определения темы выше в `hugo.toml` создает тему с 3 компонентами темы с приоритетом слева направо.
 
-For any given file, data entry, etc., Hugo will look first in the project and then in `my-shortcodes`, `base-theme`, and lastly `hyde`.
+Для любого заданного файла, записи данных и т. д. Hugo сначала будет искать в проекте, а затем в `my-shortcodes`, `base-theme` и, наконец, `hyde`.
 
-Hugo uses two different algorithms to merge the file systems, depending on the file type:
+Hugo использует два разных алгоритма для объединения файловых систем в зависимости от типа файла:
 
-- For `i18n` and `data` files, Hugo merges deeply using the translation ID and data key inside the files.
-- For `static`, `layouts` (templates), and `archetypes` files, these are merged on file level. So the left-most file will be chosen.
+- Для файлов `i18n` и `data` Hugo выполняет глубокое объединение, используя идентификатор перевода и ключ данных внутри файлов.
+- Для файлов `static`, `layouts` (шаблоны) и `archetypes` они объединяются на уровне файла. Поэтому будет выбран самый левый файл.
 
-The name used in the `theme` definition above must match a directory in `/your-site/themes`, e.g. `/your-site/themes/my-shortcodes`.
+Имя, используемое в определении `theme` выше, должно соответствовать каталогу в `/your-site/themes`, например `/your-site/themes/my-shortcodes`.
 
-Also note that a component that is part of a theme can have its own configuration file, e.g. `hugo.toml`. There are currently some restrictions to what a theme component can configure:
+Также обратите внимание, что компонент, являющийся частью темы, может иметь свой собственный файл конфигурации, например `hugo.toml`. В настоящее время существуют некоторые ограничения на то, что компонент темы может настраивать:
 
-- `params` (global and per language)
-- `menu` (global and per language)
-- `outputformats` and `mediatypes`
+- `params` (глобальный и для каждого языка)
+- `menu` (глобальный и для каждого языка)
+- `outputformats` и `mediatypes`
 
-The same rules apply here: The left-most parameter/menu etc. with the same ID will win. There are some hidden and experimental namespace support in the above, which we will work to improve in the future, but theme authors are encouraged to create their own namespaces to avoid naming conflicts.
+Здесь применяются те же правила: самый левый параметр/меню и т. д. с тем же идентификатором будет победителем. В приведенном выше примере реализована некоторая скрытая и экспериментальная поддержка пространств имен, над улучшением которой мы поработаем в будущем, однако авторам тем рекомендуется создавать собственные пространства имен, чтобы избежать конфликтов имен.
