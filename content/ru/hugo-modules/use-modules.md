@@ -13,20 +13,20 @@ aliases: [/themes/usage/,/themes/installing/,/installing-and-using-themes/]
 
 ## Инициализация нового модуля
 
-Use `hugo mod init` to initialize a new Hugo Module. If it fails to guess the module path, you must provide it as an argument, e.g.:
+Используйте `hugo mod init` для инициализации нового модуля Hugo. Если путь к модулю не удаётся угадать, его необходимо указать в качестве аргумента, например:
 
 ```sh
 hugo mod init github.com/<your_user>/<your_project>
 ```
 
-Also see the [CLI Doc](/commands/hugo_mod_init/).
+Также см. [CLI Doc](/commands/hugo_mod_init/).
 
-## Use a module for a theme
+## Использование модуля в качестве темы
 
-The easiest way to use a Module for a theme is to import it in the configuration.
+Самый простой способ использования модуля в качестве темы — импортировать его в конфигурацию.
 
-1. Initialize the hugo module system: `hugo mod init github.com/<your_user>/<your_project>`
-1. Import the theme:
+1. Инициализируйте систему модулей Hugo: `hugo mod init github.com/<your_user>/<your_project>`
+1. Импортируйте тему:
 
     {{< code-toggle file=hugo >}}
     [module]
@@ -34,57 +34,57 @@ The easiest way to use a Module for a theme is to import it in the configuration
         path = "github.com/spf13/hyde"
     {{< /code-toggle >}}
 
-## Update modules
+## Обновление модулей
 
-Modules will be downloaded and added when you add them as imports to your configuration. See [configure modules](/configuration/module/#imports).
+Модули будут загружены и добавлены, когда вы добавите их в качестве импорта в вашу конфигурацию. Смотрите [configure modules](/configuration/module/#imports).
 
-To update or manage versions, you can use `hugo mod get`.
+Для обновления или управления версиями вы можете использовать `hugo mod get`.
 
-Some examples:
+Примеры:
 
-### Update all modules
+### Обновление всех модулей
 
 ```sh
 hugo mod get -u
 ```
 
-### Update all modules recursively
+### Обновить все модули рекурсивно
 
 ```sh
 hugo mod get -u ./...
 ```
 
-### Update one module
+### Обновить конкретный модуль
 
 ```sh
 hugo mod get -u github.com/gohugoio/myShortcodes
 ```
 
-### Get a specific version
+### Получить конкретную версию
 
 ```sh
 hugo mod get github.com/gohugoio/myShortcodes@v1.0.7
 ```
 
-Also see the [CLI Doc](/commands/hugo_mod_get/).
+Также см. [CLI Doc](/commands/hugo_mod_get/).
 
-## Make and test changes in a module
+## Внесение и тестирование изменений в модуль
 
-One way to do local development of a module imported in a project is to add a replace directive to a local directory with the source in `go.mod`:
+Одним из способов локальной разработки модуля, импортированного в проект, является добавление директивы replace в локальный каталог с исходным кодом в `go.mod`:
 
 ```sh
 replace github.com/bep/hugotestmods/mypartials => /Users/bep/hugotestmods/mypartials
 ```
 
-If you have the `hugo server` running, the configuration will be reloaded and `/Users/bep/hugotestmods/mypartials` put on the watch list.
+Если у вас запущен `hugo server`, конфигурация будет перезагружена, а `/Users/bep/hugotestmods/mypartials` будет добавлен в список наблюдения.
 
-Instead of modifying the `go.mod` files, you can also use the modules configuration [`replacements`](/configuration/module/#top-level-options) option.
+Вместо изменения файлов `go.mod` вы также можете использовать параметр конфигурации модулей [`replacements`](/configuration/module/#top-level-options).
 
-## Print dependency graph
+## Печать графа зависиости
 
-Use `hugo mod graph` from the relevant module directory and it will print the dependency graph, including vendoring, module replacement or disabled status.
+Используйте `hugo mod graph` из соответствующего каталога модулей, и он распечатает граф зависимости, включая авторство, замены модулей или отключенный статус.
 
-E.g.:
+Например:
 
 ```txt
 hugo mod graph
@@ -98,43 +98,43 @@ github.com/bep/my-modular-site github.com/bep/hugo-fresh@v1.0.1
 github.com/bep/my-modular-site in-themesdir
 ```
 
-Also see the [CLI Doc](/commands/hugo_mod_graph/).
+Также см. [CLI Doc](/commands/hugo_mod_graph/).
 
-## Vendor your modules
+## Распространяйте ваши модули (в оригинале - Vendor your modules)
 
-`hugo mod vendor` will write all the module dependencies to a `_vendor` directory, which will then be used for all subsequent builds.
+`hugo mod vendor` запишет все зависимости модулей в каталог `_vendor`, который затем будет использоваться для всех последующих сборок.
 
-Note that:
+Обратите внимание:
 
-- You can run `hugo mod vendor` on any level in the module tree.
-- Vendoring will not store modules stored in your `themes` directory.
-- Most commands accept a `--ignoreVendorPaths` flag, which will then not use the vendored modules in `_vendor` for the module paths matching the given [glob](g) pattern.
+- Вы можете запустить `hugo mod vendor` на любом уровне в дереве модулей.
+- Распространение не будет сохранять модули, хранящиеся в вашем каталоге `themes`.
+- Большинство команд принимают флаг `--ignoreVendorPaths`, который затем не будет использовать вендорные модули в `_vendor` для путей модулей, соответствующих заданному шаблону [glob](g).
 
-Also see the [CLI Doc](/commands/hugo_mod_vendor/).
+Также см. [CLI Doc](/commands/hugo_mod_vendor/).
 
-## Tidy go.mod, go.sum
+## Аккуратно go.mod, go.sum
 
-Run `hugo mod tidy` to remove unused entries in `go.mod` and `go.sum`.
+Запустите `hugo mod tidy`, чтобы удалить неиспользуемые записи в `go.mod` и `go.sum`.
 
-Also see the [CLI Doc](/commands/hugo_mod_clean/).
+Также см. [CLI Doc](/commands/hugo_mod_clean/).
 
-## Clean module cache
+## Очистить кэш модуля
 
-Run `hugo mod clean` to delete the entire modules cache.
+Запустите `hugo mod clean`, чтобы удалить весь кэш модулей.
 
-Note that you can also configure the `modules` cache with a `maxAge`. See [configure caches](/configuration/caches/).
+Обратите внимание, что вы также можете настроить кэш `modules` с `maxAge`. Смотрите [настроить кэши](/configuration/caches/).
 
-Also see the [CLI Doc](/commands/hugo_mod_clean/).
+Также см. [CLI Doc](/commands/hugo_mod_clean/).
 
-## Module workspaces
+## Рабочее пространство модуля
 
-Workspace support was added in [Go 1.18](https://go.dev/blog/get-familiar-with-workspaces) and Hugo got solid support for it in the `v0.109.0` version.
+Поддержка рабочего пространства была добавлена ​​в [Go 1.18](https://go.dev/blog/get-familiar-with-workspaces), а Hugo получил надежную поддержку в версии `v0.109.0`.
 
-A common use case for a workspace is to simplify local development of a site with its theme modules.
+Распространенным вариантом использования рабочего пространства является упрощение локальной разработки сайта с его тематическими модулями.
 
-A workspace can be configured in a `*.work` file and activated with the [module.workspace](/configuration/module/) setting, which for this use is commonly controlled via the `HUGO_MODULE_WORKSPACE` OS environment variable.
+Рабочее пространство можно настроить в файле `*.work` и активировать с помощью параметра [module.workspace](/configuration/module/), который для этого использования обычно контролируется через переменную среды ОС `HUGO_MODULE_WORKSPACE`.
 
-See the [hugo.work](https://github.com/gohugoio/hugo/blob/master/docs/hugo.work) file in the Hugo Docs repo for an example:
+См. пример в файле [hugo.work](https://github.com/gohugoio/hugo/blob/master/docs/hugo.work) в репозитории Hugo Docs:
 
 ```text
 go 1.20
@@ -143,12 +143,12 @@ use .
 use ../gohugoioTheme
 ```
 
-Using the `use` directive, list all the modules you want to work on, pointing to its relative location. As in the example above, it's recommended to always include the main project (the `.`) in the list.
+Используя директиву `use`, перечислите все модули, над которыми вы хотите работать, указав их относительное расположение. Как и в примере выше, рекомендуется всегда включать в список основной проект (`.`).
 
-With that you can start the Hugo server with that workspace enabled:
+С этим вы можете запустить сервер Hugo с включенным рабочим пространством:
 
 ```sh
 HUGO_MODULE_WORKSPACE=hugo.work hugo server --ignoreVendorPaths "**"
 ```
 
-The `--ignoreVendorPaths` flag is added above to ignore any of the vendored dependencies inside `_vendor`. If you don't use vendoring, you don't need that flag. But now the server is set up watching the files and directories in the workspace and you can see your local edits reloaded.
+Флаг `--ignoreVendorPaths` добавлен выше, чтобы игнорировать любые зависимости от поставщиков внутри `_vendor`. Если вы не используете вендоринг, этот флаг вам не нужен. Но теперь сервер настроен на наблюдение за файлами и каталогами в рабочем пространстве, и вы можете видеть, как ваши локальные изменения перезагружаются.
